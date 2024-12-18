@@ -13,8 +13,6 @@ func main() {
 
 	token := os.Getenv("TOKEN")
 
-	// token := "7298916047:AAFKcjNGNUs3de6ysCmnlGta3pc6NYBfttM"
-
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
 		log.Panic(err)
