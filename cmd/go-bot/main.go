@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-bot/internal/service/product"
 	"log"
 	"os"
 
@@ -27,6 +28,7 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
+	productService := product.NewService()
 
 	for update := range updates {
 		if update.Message != nil { // If we got a message
@@ -34,7 +36,9 @@ func main() {
 
 			switch update.Message.Command(){
 			case "help":
-				commandMessage(bot, update.Message)
+				helpMessage(bot, update.Message)
+			case "list":
+				listMessage(bot, update.Message, productService)
 			default:
 				defaultBehavior(bot, update.Message)
 			}
@@ -42,8 +46,18 @@ func main() {
 	}
 }
 
-func commandMessage(bot *tgbotapi.BotAPI, inputMessage *tgbotapi.Message) {
+func helpMessage(bot *tgbotapi.BotAPI, inputMessage *tgbotapi.Message) {
 	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, inputMessage.Text + "-" + inputMessage.Command())
+	bot.Send(msg)
+}
+
+func listMessage(bot *tgbotapi.BotAPI, inputMessage *tgbotapi.Message, service *product.Service){
+	outputMsgText := "The list your products: \n"
+	for _, t := range service.List(){
+		outputMsgText += t.Title
+		outputMsgText += "\n"
+	}
+	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, outputMsgText)
 	bot.Send(msg)
 }
 
