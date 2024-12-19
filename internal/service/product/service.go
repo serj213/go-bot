@@ -41,3 +41,12 @@ func (s *Service) Delete(idx int) (*Product, error){
 
 	return &elem, nil
 }
+
+func (s *Service) New(name string) Product{
+
+	AllProducts = append(AllProducts, Product{
+		Title: name,
+	})
+
+	return AllProducts[len(AllProducts) - 1]
+}
