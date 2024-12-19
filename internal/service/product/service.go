@@ -47,6 +47,18 @@ func (s *Service) New(name string) Product{
 	AllProducts = append(AllProducts, Product{
 		Title: name,
 	})
-
 	return AllProducts[len(AllProducts) - 1]
+}
+
+func (s *Service) Edit(idx int, newName string) (Product, error){
+	elem, err := hasElemProduct(AllProducts, strconv.Itoa(idx))
+
+	if err != nil {
+		fmt.Println("edit product not found elem")
+		return elem, err
+	}
+
+	AllProducts[idx].Title = newName 
+
+	return AllProducts[idx], nil
 }

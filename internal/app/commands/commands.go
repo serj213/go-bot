@@ -48,6 +48,9 @@ func (c *Commander) HandleUpdate(updates tgbotapi.UpdatesChannel, products *prod
 
 			case "new":
 				c.New(update.Message)	
+
+			case "edit":
+				c.Edit(update.Message)
 			default:
 				c.Default(update.Message)
 			}
