@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"go-bot/internal/app/commands"
 	"go-bot/internal/service/product"
 	"log"
@@ -34,4 +35,10 @@ func main() {
 	commander := commands.NewCommander(bot, productService)
 	
 	commander.HandleUpdate(updates, productService)
+
+	defer func(){
+		if err := recover(); err != nil{
+			fmt.Printf("Error application: %v", err)
+		}
+	}()
 }
