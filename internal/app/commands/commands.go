@@ -24,6 +24,13 @@ func NewCommander(bot *tgbotapi.BotAPI, service *product.Service) *Commander{
 
 
 func (c *Commander) HandleUpdate(updates tgbotapi.UpdatesChannel, products *product.Service){
+
+	defer func(){
+		if err := recover(); err != nil{
+			log.Printf("Recovered application: %v", err)
+		}
+	}()
+
 	for update := range updates {
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
@@ -35,6 +42,9 @@ func (c *Commander) HandleUpdate(updates tgbotapi.UpdatesChannel, products *prod
 				c.List(update.Message, products)
 			case "get":
 				c.Get(update.Message)
+
+			case "delete": 
+				c.Delete(update.Message)
 			default:
 				c.Default(update.Message)
 			}
