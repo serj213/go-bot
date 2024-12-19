@@ -1,0 +1,35 @@
+{
+    "title":"The commands list: ",
+    "commands": [
+        {
+            "name":"help",
+            "description":"list of commands",
+            "command": "/help"
+        },
+        {
+            "name":"get",
+            "description":"get a entity",
+            "command": "/get"
+        },
+        {
+            "name":"list",
+            "description":"get a list of your entity ",
+            "command": "/list"
+        },
+        {
+            "name":"delete",
+            "description":"delete an existing entity",
+            "command": "/delete"
+        },
+        {
+            "name":"new",
+            "description":"create a new entity",
+            "command": "/new"
+        },
+        {
+            "name":"edit",
+            "description":"edit a entity",
+            "command": "/edit"
+        }
+    ]
+}
